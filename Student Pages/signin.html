@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Login</title>
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
+  <style>
+    /* Global Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    /* Main container with horizontal layout */
+    .container {
+      display: flex;
+      width: 80vw;
+      max-width: 1200px;
+      min-height: 600px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    /* Left Panel: Title */
+    .left-panel {
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      flex: 0 0 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .left-panel h2 {
+      font-size: 36px;
+      text-align: center;
+      color: #fff;
+      line-height: 1.2;
+    }
+    /* Right Panel: Login Form */
+    .right-panel {
+      flex: 0 0 60%;
+      padding: 60px 40px; /* Extra top & bottom padding */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .right-panel form {
+      width: 100%;
+    }
+    /* Form Group Styling */
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border 0.3s ease;
+    }
+    .form-group input:focus {
+      border-color: #2575fc;
+      outline: none;
+      box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
+    }
+    /* Submit Button */
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: #2575fc;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #1a5bb8;
+    }
+    /* Sign Up Link */
+    .signup-link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .signup-link a {
+      color: #2575fc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        width: 90%;
+        min-height: auto;
+      }
+      .left-panel,
+      .right-panel {
+        flex: 0 0 auto;
+        width: 100%;
+      }
+      .right-panel {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left Panel: Title -->
+    <div class="left-panel">
+      <h2>Student Login</h2>
+    </div>
+    <!-- Right Panel: Login Form -->
+    <div class="right-panel">
+      <form id="studentLoginForm">
+        <!-- Username field: Graduation enrollment number -->
+        <div class="form-group">
+          <label for="username">Enrollment Number</label>
+          <input type="text" id="username" placeholder="Enter your enrollment number" required />
+        </div>
+        <!-- Password field -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required />
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn">Sign In</button>
+      </form>
+      <!-- Sign Up Link -->
+      <div class="signup-link">
+        <p>Not registered? <a href="login.html">Register Here</a></p>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById("studentLoginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      // Collect the login credentials from the form
+      const loginData = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value,
+      };
+      console.log("Login Data:", loginData);
+      alert("Login successful!");
+      // You might add redirect logic here once authentication is completed.
+    });
+  </script>
+</body>
+</html>

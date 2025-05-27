@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assignments - Smart Classroom System</title>
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <style>
+    /* Reset and Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    ul {
+      list-style: none;
+    }
+    
+    /* HEADER with Animated Gradient */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(45deg, #6a11cb, #2575fc, #6a11cb);
+      background-size: 200% 200%;
+      animation: gradientBG 8s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      color: #fff;
+      z-index: 1100;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    header h1 {
+      font-size: 26px;
+    }
+    /* Header Navigation and Dropdown */
+    .nav-menu ul {
+      display: flex;
+      align-items: center;
+    }
+    .nav-menu ul li {
+      margin: 0 15px;
+      position: relative;
+    }
+    .nav-menu ul li a {
+      font-size: 16px;
+      padding: 8px;
+      transition: color 0.3s;
+    }
+    .nav-menu ul li a:hover {
+      color: #ffeb3b;
+    }
+    /* Dropdown styles */
+    .dropdown .dropbtn {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+    .dropdown .fa-caret-down {
+      margin-left: 5px;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 150px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 15px;
+      color: #333;
+      transition: background 0.3s;
+    }
+    .dropdown-content a:hover {
+      background: #f0f0f0;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    /* MAIN LAYOUT */
+    .container {
+      display: flex;
+      margin-top: 80px; /* to account for fixed header */
+      height: calc(100vh - 80px);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    /* SIDEBAR */
+    .sidebar {
+      width: 250px;
+      background: #fff;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+    }
+    /* When container has class "collapsed", slide sidebar out */
+    .container.collapsed .sidebar {
+      transform: translateX(-260px);
+    }
+    .sidebar nav ul li {
+      margin: 15px 0;
+    }
+    .sidebar nav ul li a {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      color: #333;
+      transition: background 0.3s, padding-left 0.3s;
+      border-radius: 4px;
+    }
+    .sidebar nav ul li a:hover {
+      background: #f0f0f0;
+      padding-left: 15px;
+    }
+    .sidebar nav ul li a i {
+      margin-right: 10px;
+      color: #2575fc;
+    }
+    
+    /* Sidebar Toggle Button */
+    .sidebar-toggle {
+      position: absolute;
+      top: 20px;
+      left: 250px;
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: left 0.3s ease;
+      z-index: 1200;
+    }
+    .container.collapsed .sidebar-toggle {
+      left: 10px;
+    }
+    
+    /* MAIN CONTENT AREA (Assignment Page) */
+    .main-content {
+      flex: 1;
+      padding: 30px 40px;
+      overflow-y: auto;
+      position: relative;
+      animation: fadeIn 1s ease-in;
+      transition: margin-left 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page-title {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    .instructions {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+    /* Assignment Cards Grid */
+    .assignments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      animation: fadeIn 1.5s ease-in;
+    }
+    .assignment-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .assignment-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .assignment-card h3 {
+      font-size: 22px;
+      color: #2575fc;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .assignment-card h3 i {
+      margin-right: 8px;
+    }
+    .assignment-card p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+    .assignment-card .due-date {
+      font-size: 14px;
+      font-weight: bold;
+      color: #E53935;  /* red tone for due date */
+      margin-bottom: 15px;
+    }
+    .assignment-card .submit-btn {
+      display: inline-block;
+      padding: 10px 15px;
+      background: #2575fc;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    .assignment-card .submit-btn:hover {
+      background: #1a5bb8;
+    }
+    
+    /* FOOTER */
+    footer {
+      background: #fff;
+      text-align: center;
+      padding: 15px;
+      border-top: 1px solid #ddd;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        transform: translateX(0);
+      }
+      .sidebar-toggle {
+        display: none;
+      }
+      .main-content {
+        padding: 15px 20px;
+      }
+      .nav-menu ul {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <h1>Smart Classroom System</h1>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Courses</a></li>
+        <li><a href="#">Announcements</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Profile <i class="fa fa-caret-down"></i></a>
+          <div class="dropdown-content">
+            <a href="#">View Profile</a>
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- MAIN LAYOUT -->
+  <div class="container" id="container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <nav>
+        <ul>
+          <li><a href="#"><i class="fa fa-tachometer-alt"></i> Dashboard</a></li>
+          <li><a href="#"><i class="fa fa-book"></i> My Courses</a></li>
+          <li><a href="#"><i class="fa fa-calendar"></i> Schedule</a></li>
+          <li><a href="#"><i class="fa fa-tasks"></i> Assignments</a></li>
+          <li><a href="#"><i class="fa fa-pencil-alt"></i> Exams</a></li>
+          <li><a href="#"><i class="fa fa-folder-open"></i> Resources</a></li>
+          <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+          <li><a href="#"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+    
+    <!-- Animated Sidebar Toggle Button -->
+    <div class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">
+      <i class="fa fa-angle-double-left"></i>
+    </div>
+    
+    <!-- MAIN CONTENT: Assignment Page -->
+    <main class="main-content">
+      <div class="page-title">Assignments</div>
+      <p class="instructions">
+        Below you can view your current assignments. Click the "Submit Assignment" button to upload your work. Please note the due dates and instructions for each task.
+      </p>
+      
+      <!-- ASSIGNMENTS GRID -->
+      <div class="assignments-grid">
+        <!-- Assignment Card 1 -->
+        <div class="assignment-card">
+          <h3><i class="fa fa-file-alt"></i> Data Structures Assignment</h3>
+          <p>
+            Solve problems related to trees, graphs, and linked lists. Ensure you provide detailed explanations for each solution.
+          </p>
+          <div class="due-date">Due: June 10, 2025</div>
+          <a href="#" class="submit-btn">Submit Assignment</a>
+        </div>
+        <!-- Assignment Card 2 -->
+        <div class="assignment-card">
+          <h3><i class="fa fa-file-alt"></i> Web Development Project</h3>
+          <p>
+            Develop a dynamic website using HTML, CSS, and JavaScript frameworks. Your project should include responsive design and interactive features.
+          </p>
+          <div class="due-date">Due: June 20, 2025</div>
+          <a href="#" class="submit-btn">Submit Assignment</a>
+        </div>
+        <!-- Assignment Card 3 -->
+        <div class="assignment-card">
+          <h3><i class="fa fa-file-alt"></i> Database Systems Report</h3>
+          <p>
+            Write a comprehensive report on normalization techniques and SQL query optimization. Include examples from real-world applications.
+          </p>
+          <div class="due-date">Due: June 15, 2025</div>
+          <a href="#" class="submit-btn">Submit Assignment</a>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 Smart Classroom System. All Rights Reserved.
+  </footer>
+  
+  <script>
+    // Retrieve the username from localStorage, defaulting to "Student"
+    const username = localStorage.getItem('username') || 'Student';
+    // (If needed, you can use this value elsewhere in your assignments page)
+    
+    // Toggle the sidebar on button click
+    function toggleSidebar() {
+      const container = document.getElementById('container');
+      container.classList.toggle('collapsed');
+      const toggleIcon = document.getElementById('sidebarToggle').querySelector('i');
+      if (container.classList.contains('collapsed')) {
+        toggleIcon.classList.remove('fa-angle-double-left');
+        toggleIcon.classList.add('fa-angle-double-right');
+      } else {
+        toggleIcon.classList.remove('fa-angle-double-right');
+        toggleIcon.classList.add('fa-angle-double-left');
+      }
+    }
+  </script>
+</body>
+</html>
