@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Registration</title>
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="static\registration_signin.css">
+
+</head>
+<body>
+  <div class="container">
+    <!-- Left Panel: Form Title -->
+    <div class="left-panel">
+      <h2>Student Registration</h2>
+    </div>
+    <!-- Right Panel: Registration Form -->
+    <div class="right-panel">
+      <form id="studentRegistrationForm">
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your full name" required />
+        </div>
+        <!-- Horizontal group for Gender and Date of Birth -->
+        <div class="horizontal-group">
+          <!-- Gender Dropdown -->
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" required>
+              <option value="" disabled selected>Select your gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <!-- Date of Birth using Flatpickr -->
+          <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="text" id="dob" placeholder="Select your date of birth" required />
+          </div>
+        </div>
+        <!-- Enrollment Number -->
+        <div class="form-group">
+          <label for="enrollment">Enrollment Number</label>
+          <input type="text" id="enrollment" placeholder="Enter enrollment number" required />
+        </div>
+        <!-- Mobile Number -->
+        <div class="form-group">
+          <label for="mobile">Mobile Number</label>
+          <input type="tel" id="mobile" placeholder="Enter your mobile number" required />
+        </div>
+        <!-- Email Address -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email address" required />
+        </div>
+        <!-- Set Password -->
+        <div class="form-group">
+          <label for="password">Set Password</label>
+          <input type="password" id="password" placeholder="Choose a secure password" required />
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn">Submit</button>
+      </form>
+      <!-- Sign In Link -->
+      <div class="signin-link">
+        <p>Already registered? <a href="signin.html">Sign In</a></p>
+      </div>
+    </div>
+  </div>
+  <!-- Include Flatpickr from the CDN -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="static\registration_signin.js"></script>
+</body>
+</html>
